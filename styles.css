@@ -1,0 +1,50 @@
+/* Simple, clean styles inspired by the example site */
+:root{
+  --bg:#0d0f12;
+  --card:#0f1720;
+  --text:#e6eef6;
+  --muted:#9aa6b6;
+  --accent:#4fd1c5;
+  --maxw:980px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
+
+.hero{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+  padding:60px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background-image: url('hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+.hero-inner{
+  max-width:var(--maxw);
+  text-align:center;
+}
+.name{font-size:38px;margin:0 0 8px;}
+.role{font-size:18px;margin:0 0 12px;color:var(--muted);}
+.badges{margin:0 0 12px;color:var(--accent);}
+.contact a{color:var(--text);text-decoration:none;}
+
+.container{
+  max-width:var(--maxw);
+  margin:36px auto;
+  padding:0 16px;
+  background:transparent;
+}
+
+h2{color:var(--text);margin-bottom:8px}
+section{margin-bottom:24px;padding:16px;border-radius:12px;background:rgba(255,255,255,0.01);}
+
+footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
+
+@media (max-width:600px){
+  .name{font-size:28px}
+  .role{font-size:16px}
+}
