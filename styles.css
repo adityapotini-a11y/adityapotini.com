@@ -655,3 +655,96 @@ footer.site-footer {
   flex-direction: column;
   gap: 8px;
 }
+
+/* ===== Contact: mobile friendly improvements ===== */
+
+/* Make contact grid stack on narrow screens */
+@media (max-width: 920px) {
+  .contact-inner {
+    grid-template-columns: 1fr; /* stack columns vertically */
+    gap: 20px;                 /* slightly smaller gap on mobile */
+    align-items: stretch;
+  }
+
+  /* make the left text block align nicely */
+  .contact-inner > div:first-child {
+    order: 0;
+  }
+
+  /* ensure the form comes after the text on mobile */
+  .contact-form {
+    order: 1;
+  }
+}
+
+/* Tighter spacing and full-width inputs for small screens */
+.contact-form label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.contact-form label span {
+  display: block;
+  margin-bottom: 6px;
+  color: #e6eef8;
+  font-weight: 600;
+}
+
+/* Make inputs and textarea expand to container width (they already do but be explicit) */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Make form actions responsive: buttons stack on mobile */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* On narrower screens stack buttons vertically and make them full-width */
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  /* reduce left/right padding inside container so everything fits better */
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+/* Improve tap targets for accessibility on mobile */
+.contact-form .btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slight visual spacing for email text */
+.email-large {
+  font-weight: 600;
+  color: #fff;
+  margin-top: 6px;
+}
+
+/* Prevent form from being too wide on very small screens */
+@media (max-width: 360px) {
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+  }
+}
+
