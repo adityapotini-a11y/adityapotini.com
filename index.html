@@ -1,43 +1,140 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aditya Potini — Revenue & Growth Specialist</title>
+  <meta name="description" content="Revenue & Growth Specialist — CRM strategy, user lifecycle, and product growth." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-inner">
-      <h1 class="name">Aditya Potini</h1>
-      <p class="role">Revenue &amp; Growth Specialist</p>
-      <p class="badges">CRM Strategy • User Lifecycle • Product Growth</p>
-      <p class="contact">✉️ <a href="mailto:adityapotini@gmail.com">adityapotini@gmail.com</a></p>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#home">Aditya<span class="logo-dot">.</span></a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav" class="nav">
+        <ul>
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section id="about">
-      <h2>About</h2>
-      <p>Short paragraph about you — 2–3 sentences summarizing your focus, experience, and what you care about.</p>
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <div>
+          <h1 class="name">Aditya Potini</h1>
+          <p class="role">Revenue & Growth Specialist</p>
+          <p class="tagline">CRM Strategy • User Lifecycle • Product Growth</p>
+          <p class="contact-small">adityapotini@gmail.com</p>
+          <div class="hero-ctas">
+            <a class="btn primary" href="#projects">See work</a>
+            <a class="btn ghost" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="visual"></div>
+        </div>
+      </div>
     </section>
 
-    <section id="work">
-      <h2>Selected Work</h2>
-      <ul>
-        <li><strong>Project or role</strong> — short one-line summary</li>
-        <li><strong>Project or role</strong> — short one-line summary</li>
-      </ul>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About</h2>
+        <p class="lead">I help products grow through data-driven CRM, lifecycle design, and experimentation. Passionate about long-term retention and measurable growth.</p>
+      </div>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Interested in connecting? Email me at <a href="mailto:adityapotini@gmail.com">adityapotini@gmail.com</a>.</p>
+    <!-- SKILLS -->
+    <section id="skills" class="section bg-muted">
+      <div class="container">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill">CRM Strategy</div>
+          <div class="skill">Lifecycle Marketing</div>
+          <div class="skill">Experimentation</div>
+          <div class="skill">Data & Analytics</div>
+          <div class="skill">Product Growth</div>
+          <div class="skill">Team Leadership</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+          <article class="project-card">
+            <h3>Project One</h3>
+            <p>Optimized user lifecycle campaigns that increased retention by 18% MoM.</p>
+            <a href="#" class="project-link">Case study →</a>
+          </article>
+
+          <article class="project-card">
+            <h3>Project Two</h3>
+            <p>Designed a CRM growth framework for a marketplace, improving engagement by 25%.</p>
+            <a href="#" class="project-link">Case study →</a>
+          </article>
+
+          <article class="project-card">
+            <h3>Project Three</h3>
+            <p>Implemented data-led experimentation leading to 12% higher conversions.</p>
+            <a href="#" class="project-link">Case study →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact-section bg-dark">
+      <div class="container contact-inner">
+        <div>
+          <h2>Contact</h2>
+          <p>Let’s collaborate or just say hi!</p>
+          <p class="email-large">adityapotini@gmail.com</p>
+        </div>
+        <form id="contact-form" class="contact-form" action="mailto:adityapotini@gmail.com" method="post" enctype="text/plain">
+          <label>
+            <span>Name</span>
+            <input name="name" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" required />
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Send</button>
+            <button type="button" id="copy-email" class="btn ghost">Copy email</button>
+          </div>
+          <p id="form-msg" class="form-msg" aria-live="polite"></p>
+        </form>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>© <span id="year"></span> Aditya Potini</p>
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> Aditya Potini — Built with ♥</small>
+      <div class="socials">
+        <a href="#" target="_blank">LinkedIn</a>
+        <a href="#" target="_blank">GitHub</a>
+      </div>
+    </div>
   </footer>
 
   <script src="script.js"></script>
