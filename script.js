@@ -18,12 +18,30 @@
   }
 
   // Smooth scroll for nav links (and close mobile nav)
-  navLinks.forEach(link => {
+  // This version accounts for the sticky header height so headings aren't hidden.
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
+      const href = link.getAttribute('href');
+      if (!href || href === "#") return;
+      const target = document.querySelector(href);
+      if (!target) return;
+
       e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-      nav.classList.remove('open');
+
+      // header height from CSS variable or fallback
+      const rootStyles = getComputedStyle(document.documentElement);
+      const headerH = parseInt(rootStyles.getPropertyValue('--site-header-height')) || 72;
+
+      const rect = target.getBoundingClientRect();
+      const targetY = window.scrollY + rect.top - headerH - 12; // extra spacing
+
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: 'smooth'
+      });
+
+      // close mobile nav if open
+      if (nav && nav.classList.contains('open')) nav.classList.remove('open');
     });
   });
 
@@ -45,11 +63,19 @@
   }
   window.addEventListener('scroll', onScroll);
 
-  // Scroll to hash on load (fix for #home etc.)
+  // Scroll to hash on load (account for header)
   window.addEventListener('DOMContentLoaded', () => {
     if (location.hash) {
       const el = document.querySelector(location.hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (el) {
+        const rootStyles = getComputedStyle(document.documentElement);
+        const headerH = parseInt(rootStyles.getPropertyValue('--site-header-height')) || 72;
+        const rect = el.getBoundingClientRect();
+        window.scrollTo({
+          top: Math.max(0, window.scrollY + rect.top - headerH - 12),
+          behavior: 'smooth'
+        });
+      }
     }
   });
 
