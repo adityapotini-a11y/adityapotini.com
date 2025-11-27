@@ -14,11 +14,14 @@
     navToggle.addEventListener('click', () => {
       nav.classList.toggle('open');
       navToggle.classList.toggle('open');
+      
+      // Update ARIA attribute
+      const isOpen = nav.classList.contains('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
     });
   }
 
   // Smooth scroll for nav links (and close mobile nav)
-  // This version accounts for the sticky header height so headings aren't hidden.
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
       const href = link.getAttribute('href');
@@ -28,26 +31,33 @@
 
       e.preventDefault();
 
-      // header height from CSS variable or fallback
-      const rootStyles = getComputedStyle(document.documentElement);
-      const headerH = parseInt(rootStyles.getPropertyValue('--site-header-height')) || 72;
+      // 1. Close mobile nav immediately so it doesn't affect layout calculations
+      if (nav && nav.classList.contains('open')) {
+        nav.classList.remove('open');
+        if(navToggle) navToggle.classList.remove('open');
+      }
 
+      // 2. Get the ACTUAL rendered height of the header (dynamic)
+      const header = document.querySelector('.site-header');
+      const headerH = header ? header.getBoundingClientRect().height : 72;
+
+      // 3. Calculate position
       const rect = target.getBoundingClientRect();
-      const targetY = window.scrollY + rect.top - headerH - 12; // extra spacing
+      // rect.top is relative to viewport. We need absolute position relative to document.
+      // We subtract headerH and add 25px extra buffer for breathing room
+      const offsetPosition = window.scrollY + rect.top - headerH - 25;
 
       window.scrollTo({
-        top: Math.max(0, targetY),
+        top: Math.max(0, offsetPosition),
         behavior: 'smooth'
       });
-
-      // close mobile nav if open
-      if (nav && nav.classList.contains('open')) nav.classList.remove('open');
     });
   });
 
   // Highlight current section while scrolling
   function onScroll() {
-    const scrollPos = window.scrollY + 120;
+    // Offset by header height approx
+    const scrollPos = window.scrollY + 100; 
     navLinks.forEach(link => {
       const section = document.querySelector(link.getAttribute('href'));
       if (section) {
@@ -63,16 +73,16 @@
   }
   window.addEventListener('scroll', onScroll);
 
-  // Scroll to hash on load (account for header)
+  // Scroll to hash on load
   window.addEventListener('DOMContentLoaded', () => {
     if (location.hash) {
       const el = document.querySelector(location.hash);
       if (el) {
-        const rootStyles = getComputedStyle(document.documentElement);
-        const headerH = parseInt(rootStyles.getPropertyValue('--site-header-height')) || 72;
+        const header = document.querySelector('.site-header');
+        const headerH = header ? header.getBoundingClientRect().height : 72;
         const rect = el.getBoundingClientRect();
         window.scrollTo({
-          top: Math.max(0, window.scrollY + rect.top - headerH - 12),
+          top: Math.max(0, window.scrollY + rect.top - headerH - 25),
           behavior: 'smooth'
         });
       }
@@ -94,9 +104,7 @@
     });
   }
 
-  // -----------------------------
-  // Skills animation (IntersectionObserver)
-  // -----------------------------
+  // Skills animation
   const skills = Array.from(document.querySelectorAll('.skills-grid.revamp .skill'));
 
   if (skills.length > 0) {
@@ -118,23 +126,20 @@
     const valueNode = skillEl.querySelector('.skill-value');
     const progressWrap = skillEl.querySelector('.bar-wrap');
 
-    // Update ARIA for screen readers
     if (progressWrap) {
       progressWrap.setAttribute('aria-valuenow', percent);
     }
 
-    // animate bar width using CSS transition
     requestAnimationFrame(() => {
       if (fill) fill.style.width = percent + '%';
     });
 
-    // animated numeric counter
     if (valueNode) {
       const duration = 900;
       const start = performance.now();
       function step(now){
         const elapsed = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - elapsed, 3); // easeOutCubic
+        const eased = 1 - Math.pow(1 - elapsed, 3);
         const current = Math.round((percent) * eased);
         valueNode.textContent = current + '%';
         if (elapsed < 1) requestAnimationFrame(step);
@@ -143,7 +148,6 @@
     }
   }
 
-  // allow keyboard users to trigger animation on focus
   document.querySelectorAll('.skills-grid.revamp .skill').forEach(el => {
     el.addEventListener('focus', () => {
       const fill = el.querySelector('.bar-fill');
