@@ -302,6 +302,40 @@ header.site-header {
 	font-weight: 500;
 }
 
+/* Projects header + single-row layout */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.projects-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+/* View all button */
+.view-all {
+  font-size: 0.95rem;
+}
+
+/* Mobile fallback */
+@media (max-width: 768px) {
+  .projects-row {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+
+
 /* Contact layout */
 .contact-inner {
 	display: grid;
